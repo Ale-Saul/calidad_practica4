@@ -32,3 +32,8 @@ Feature: Inventory Management
         Given I am on the product inventory page
         When I sort the products by "Price (high to low)"
         Then the products should be sorted by price from highest to lowest
+
+    Scenario: Viewing product details
+        Given I am on the product inventory page
+        When I click on the "Sauce Labs Backpack" product
+        Then I should be taken to the product detail page for "Sauce Labs Backpack"
