@@ -12,3 +12,8 @@ Feature: Inventory Management
   Scenario: Viewing all products
     Given I am on the product inventory page
     Then I should see a list of available products
+
+ Scenario: Sorting products by name (A to Z)
+    Given I am on the product inventory page
+    When I sort the products by "Name (A to Z)"
+    Then the products should be sorted alphabetically from A to Z
