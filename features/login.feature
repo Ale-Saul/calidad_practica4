@@ -19,14 +19,13 @@ Feature: Login to Swag Labs
     Then I should see the error message "Epic sadface: Sorry, this user has been locked out."
 
   Scenario Outline: Invalid credentials are rejected
-    When I enter username "<user>"
-    And  I enter password "<pass>"
-    And  I click the login button
-    Then I should see the error message "Epic sadface: Username and password do not match any user in this service."
+  When I enter username "<user>"
+  And  I enter password "<pass>"
+  And  I click the login button
+  Then I should see the error message "<message>"
 
-    Examples:
-      | user           | pass        |
-      | invalid_user   | wrong_pass  |
-      |                | secret_sauce|
-      | standard_user  |             |
-      
+  Examples:
+    | user           | pass        | message                                                                    |
+    | invalid_user   | wrong_pass  | Epic sadface: Username and password do not match any user in this service  |
+    |                | secret_sauce| Epic sadface: Username is required                                         |
+    | standard_user  |             | Epic sadface: Password is required                                         |
