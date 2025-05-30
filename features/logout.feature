@@ -11,3 +11,7 @@ Feature: Logout from Swag Labs
     And  I click the login button
     Then I should be redirected to the products page
 
+  Scenario: User logs out successfully
+    When I open the menu
+    And I click the logout button
+    Then I should be redirected to the login page
