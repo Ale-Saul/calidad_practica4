@@ -25,3 +25,11 @@ Feature: Checkout process
     And I click the checkout button
     And I continue to the overview
     Then I should see the error message "Error: First Name is required"
+
+  Scenario: Cancel checkout and return to products
+    When I go to the cart
+    And I click the checkout button
+    And I fill in my information with first name "Juan", last name "Pérez", and postal code "12345"
+    And I continue to the overview
+    And I cancel the purchase
+    Then I should be redirected to the products page
