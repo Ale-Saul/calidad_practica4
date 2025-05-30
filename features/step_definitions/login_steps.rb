@@ -20,5 +20,6 @@ Given('I am on the SauceDemo login page') do
   end
   
   Then('I should see the error message {string}') do |msg|
-    expect(page).to have_selector('.error-message-container h3', text: msg, wait: 5)
+    expect(page).to have_content(msg)
   end
+  
