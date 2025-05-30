@@ -11,3 +11,11 @@ Feature: Checkout process
     And  I click the login button
     Then I should be redirected to the products page
     When I add the first product to the cart
+
+  Scenario: Successful checkout with valid data
+    When I go to the cart
+    And I click the checkout button
+    And I fill in my information with first name "Juan", last name "Pérez", and postal code "12345"
+    And I continue to the overview
+    And I finish the purchase
+    Then I should see the confirmation message "Thank you for your order!"
