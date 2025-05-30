@@ -15,3 +15,9 @@ Feature: Logout from Swag Labs
     When I open the menu
     And I click the logout button
     Then I should be redirected to the login page
+
+  Scenario: After logout, cannot access protected page
+    When I open the menu
+    And I click the logout button
+    And I try to visit the products page directly
+    Then I should be redirected to the login page
