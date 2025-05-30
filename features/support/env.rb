@@ -13,4 +13,6 @@ Capybara.register_driver :chrome_incognito do |app|
 end
 
 Capybara.default_driver = :chrome_incognito
+
+
 Capybara.javascript_driver = :chrome_incognito
