@@ -19,3 +19,9 @@ Feature: Checkout process
     And I continue to the overview
     And I finish the purchase
     Then I should see the confirmation message "Thank you for your order!"
+
+  Scenario: Checkout fails with empty fields
+    When I go to the cart
+    And I click the checkout button
+    And I continue to the overview
+    Then I should see the error message "Error: First Name is required"
