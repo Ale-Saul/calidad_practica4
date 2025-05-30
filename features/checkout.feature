@@ -46,3 +46,10 @@ Feature: Checkout process
       |        | Pérez    | 12345         | Error: First Name is required  |
       | Juan   |          | 12345         | Error: Last Name is required   |
       | Juan   | Pérez    |               | Error: Postal Code is required |
+
+Scenario: Cancel on the information screen and return to the cart
+  When I go to the cart
+  And I click the checkout button
+  And I cancel the information entry
+  Then I should be redirected to the cart page
+

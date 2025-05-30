@@ -35,5 +35,13 @@
   Then('I should see the confirmation message {string}') do |msg|
     expect(page).to have_content(msg)
   end
-  
-  
+
+  When('I cancel the information entry') do
+    click_button('Cancel')
+  end
+
+  Then('I should be redirected to the cart page') do
+    expect(page).to have_current_path(/cart.html/, url: true)
+    # También puedes verificar la presencia de algún elemento único del carrito:
+    expect(page).to have_content('Your Cart')
+  end
