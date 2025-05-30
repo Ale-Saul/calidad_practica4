@@ -53,3 +53,10 @@ Scenario: Cancel on the information screen and return to the cart
   And I cancel the information entry
   Then I should be redirected to the cart page
 
+Scenario: Cancel on the summary screen and return to the catalog
+  When I go to the cart
+  And I click the checkout button
+  And I fill in my information with first name "Maria", last name "Gomez", and postal code "10101"
+  And I continue to the overview
+  And I cancel the purchase
+  Then I should be redirected to the products page
