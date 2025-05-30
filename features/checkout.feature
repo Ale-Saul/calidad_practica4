@@ -33,3 +33,16 @@ Feature: Checkout process
     And I continue to the overview
     And I cancel the purchase
     Then I should be redirected to the products page
+
+  Scenario Outline: Validation of required fields at checkout
+    When I go to the cart
+    And I click the checkout button
+    And I fill in my information with first name "<nombre>", last name "<apellido>", and postal code "<codigo_postal>"
+    And I continue to the overview
+    Then I should see the error message "<mensaje>"
+
+    Examples:
+      | nombre | apellido | codigo_postal | mensaje                        |
+      |        | Pérez    | 12345         | Error: First Name is required  |
+      | Juan   |          | 12345         | Error: Last Name is required   |
+      | Juan   | Pérez    |               | Error: Postal Code is required |
