@@ -24,3 +24,12 @@ Feature: Sidebar Menu Functionality
     When I click "Logout" in the sidebar
     Then I should be redirected to the login page
     And the sidebar menu should be closed (or not present on login page)
+
+  Scenario: Reset App State
+    # First, add an item to the cart to verify reset works
+    When I add the first product to the cart from the products page
+    And I open the sidebar menu # Re-open if adding item closes it or navigates away
+    And I click "Reset App State" in the sidebar
+    Then the cart should be empty
+    And I should be on the products page
+    And the sidebar menu should be closed 
