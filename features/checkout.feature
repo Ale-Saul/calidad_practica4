@@ -75,3 +75,16 @@ Scenario: Attempt to checkout with an empty cart
     And I click the checkout button
     Then I should be on the checkout information page
 
+Scenario: Modify checkout information after navigating back from overview
+    When I go to the cart
+    And I click the checkout button
+    And I fill in my information with first name "Original", last name "User", and postal code "10001"
+    And I continue to the overview
+    Then I should be on the checkout overview page
+    When I navigate back to the previous page
+    Then I should be on the checkout information page
+    And I fill in my information with first name "Changed", last name "Name", and postal code "20002"
+    And I continue to the overview
+    Then I should be on the checkout overview page
+    And I finish the purchase
+    Then I should see the confirmation message "Thank you for your order!"
