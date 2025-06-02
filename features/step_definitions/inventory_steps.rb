@@ -6,10 +6,11 @@ Given('I enter valid credentials') do
   fill_in 'user-name', with: 'standard_user'
   fill_in 'password', with: 'secret_sauce'
   click_button 'Login'
+  expect(page).to have_current_path('/inventory.html', wait: 5)
 end
 
-Given('I am redirected to the product inventory page') do
-  expect(page).to have_current_path('/inventory.html', url: true)
+Then('I am redirected to the product inventory page') do
+  expect(page.current_url).to eq('https://www.saucedemo.com/inventory.html')
 end
 
 Then('I should see the inventory title as {string}') do |string|
@@ -17,23 +18,25 @@ Then('I should see the inventory title as {string}') do |string|
 end
 
 Then('I should see the following products:') do |table|
-  products = table.raw.flatten
-  displayed_products = all('.inventory_item_name').map(&:text)
-  expect(displayed_products).to match_array(products)
+  expected_names = table.raw.drop(1).map { |row| row[0] }
+  displayed_names = all('.inventory_item_name').map(&:text)
+  expect(displayed_names).to match_array(expected_names)
 end
 
-When('I select {string} from the sort dropdown') do |option_text|
-  select option_text, from: 'product_sort_container'
+When('I select {string} from the sort dropdown') do |option|
+  using_wait_time 5 do
+    find('select[data-test="product-sort-container"]').select(option)
+  end
 end
 
 Then('I should see the following sorted products:') do |table|
-  expected_order = table.raw.flatten
+  expected_order = table.raw.flatten.drop(1)
   actual_order = all('.inventory_item_name').map(&:text)
   expect(actual_order).to eq(expected_order)
 end
 
 Then('I should see the following sorted products by price:') do |table|
-  expected_prices = table.raw.flatten
+  expected_prices = table.raw.drop(1).map { |row| row[1] }  
   actual_prices = all('.inventory_item_price').map(&:text)
   expect(actual_prices).to eq(expected_prices)
 end

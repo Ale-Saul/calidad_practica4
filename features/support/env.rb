@@ -12,7 +12,8 @@ Capybara.register_driver :chrome_incognito do |app|
   Capybara::Selenium::Driver.new(app, browser: :chrome, options: options)
 end
 
-Capybara.default_driver = :chrome_incognito  
-
-
+Capybara.default_driver = :chrome_incognito
 Capybara.javascript_driver = :chrome_incognito
+
+Capybara.app_host = 'https://www.saucedemo.com'
+Capybara.run_server = false
