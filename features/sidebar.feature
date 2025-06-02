@@ -15,3 +15,7 @@ Feature: Sidebar Menu Functionality
     When I click "All Items" in the sidebar
     Then I should be redirected to the products page
     And the sidebar menu should be closed
+
+  Scenario: Navigate to About page
+    When I click "About" in the sidebar
+    Then I should be redirected to the "https://saucelabs.com/" page
