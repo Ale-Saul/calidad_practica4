@@ -11,3 +11,7 @@ Feature: Sidebar Menu Functionality
     Then I should be redirected to the products page
     And I open the sidebar menu
 
+  Scenario: Navigate to All Items
+    When I click "All Items" in the sidebar
+    Then I should be redirected to the products page
+    And the sidebar menu should be closed
