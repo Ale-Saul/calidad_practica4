@@ -60,3 +60,11 @@ Scenario: Cancel on the summary screen and return to the catalog
   And I continue to the overview
   And I cancel the purchase
   Then I should be redirected to the products page
+
+Scenario: Validate subtotal on the summary screen with two products
+    And I add the second product to the cart
+    And I go to the cart
+    And I click the checkout button
+    And I fill in my information with first name "Carlos", last name "Ruiz", and postal code "55555"
+    And I continue to the overview
+    Then the total should be correct
