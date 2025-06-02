@@ -19,3 +19,8 @@ Feature: Sidebar Menu Functionality
   Scenario: Navigate to About page
     When I click "About" in the sidebar
     Then I should be redirected to the "https://saucelabs.com/" page
+  
+  Scenario: Logout from the application
+    When I click "Logout" in the sidebar
+    Then I should be redirected to the login page
+    And the sidebar menu should be closed (or not present on login page)
