@@ -54,8 +54,47 @@
   end
 
   Then('the total should be correct') do
-    # Extrae precios de cada producto listado en el resumen
-    prices = all('.inventory_item_price').map { |el| el.text.delete('$').to_f }
-    subtotal = find('.summary_subtotal_label').text[/[\d\.]+/].to_f
+    # Espera explícitamente que haya 2 artículos en el carrito en la página de resumen.
+    # El Background añade 1, el escenario añade el 2do.
+    prices = all('.cart_item', count: 2, wait: 10).map do |item_element|
+      # Encuentra el div del precio dentro de la etiqueta del artículo y espera a que su texto contenga dígitos.
+      price_text_with_digits = item_element.find('.cart_item_label .inventory_item_price', text: /\d/).text
+      # Extrae la parte numérica del texto del precio.
+      price_text_with_digits[/[\\d\\.]+/].to_f
+    end
+    subtotal = find('.summary_subtotal_label').text[/[\\d\\.]+/].to_f
     expect(prices.sum).to eq(subtotal)
+  end
+
+  When('I remove all items from the cart') do
+    # Itera sobre todos los botones "Remove" y haz clic en ellos
+    # Es importante usar `all` y luego iterar, porque el número de botones cambiará
+    all('.cart_item .btn_secondary.cart_button').each do |remove_button|
+      remove_button.click
+    end
+    # Verifica que el badge del carrito desaparezca o no exista
+    expect(page).not_to have_selector('.shopping_cart_badge', wait: 2)
+  end
+
+  Then('I should still be on the cart page') do
+    expect(page).to have_current_path(/cart.html/, url: true)
+    expect(page).to have_content('Your Cart')
+  end
+
+  Then('I should be on the checkout overview page') do
+    expect(page).to have_current_path(/checkout-step-two.html/, url: true)
+    expect(page).to have_content('Checkout: Overview')
+  end
+
+  Then('I should see the text {string}') do |text_content|
+    expect(page).to have_content(text_content)
+  end
+
+  When('I navigate back to the previous page') do
+    page.go_back
+  end
+
+  Then('I should be on the checkout information page') do
+    expect(page).to have_current_path(/checkout-step-one.html/, url: true)
+    expect(page).to have_content('Checkout: Your Information')
   end

@@ -68,3 +68,10 @@ Scenario: Validate subtotal on the summary screen with two products
     And I fill in my information with first name "Carlos", last name "Ruiz", and postal code "55555"
     And I continue to the overview
     Then the total should be correct
+
+Scenario: Attempt to checkout with an empty cart
+    When I go to the cart
+    And I remove all items from the cart
+    And I click the checkout button
+    Then I should be on the checkout information page
+
