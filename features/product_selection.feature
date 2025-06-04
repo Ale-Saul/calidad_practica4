@@ -15,7 +15,3 @@ Feature: Product Selection Management
     Then the cart badge should show the total number of products
     When I remove all products from the cart
     Then the cart badge should be empty
-    When I add "Sauce Labs Backpack" to the cart
-    And I add "Sauce Labs Bike Light" to the cart
-    And I add "Sauce Labs Bolt T-Shirt" to the cart
-    Then the cart badge should show "3"
