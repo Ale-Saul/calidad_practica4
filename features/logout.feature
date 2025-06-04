@@ -6,10 +6,10 @@ Feature: Logout from Swag Labs
 
   Background: Login to the application
     Given I am on the SauceDemo login page
-    When I enter username "standard_user"
-    And  I enter password "secret_sauce"
-    And  I click the login button
-    Then I should be redirected to the products page
+    And I enter username "standard_user"
+    And I enter password "secret_sauce"
+    And I click the login button
+    And I should be redirected to the products page
 
   Scenario: User logs out successfully
     When I open the menu

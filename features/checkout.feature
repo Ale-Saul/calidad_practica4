@@ -6,11 +6,11 @@ Feature: Checkout process
 
   Background: Login and add a product to the cart
     Given I am on the SauceDemo login page
-    When I enter username "standard_user"
-    And  I enter password "secret_sauce"
-    And  I click the login button
-    Then I should be redirected to the products page
-    When I add the first product to the cart
+    And I enter username "standard_user"
+    And I enter password "secret_sauce"
+    And I click the login button
+    And I should be redirected to the products page
+    And I add the first product to the cart
 
   Scenario: Successful checkout with valid data
     When I go to the cart

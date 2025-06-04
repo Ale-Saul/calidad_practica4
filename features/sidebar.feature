@@ -5,10 +5,10 @@ Feature: Sidebar Menu Functionality
 
   Background: User is logged in and on the products page
     Given I am on the SauceDemo login page
-    When I enter username "standard_user"
+    And I enter username "standard_user"
     And I enter password "secret_sauce"
     And I click the login button
-    Then I should be redirected to the products page
+    And I should be redirected to the products page
     And I open the sidebar menu
 
   Scenario: Navigate to All Items
