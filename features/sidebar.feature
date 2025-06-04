@@ -27,7 +27,6 @@ Feature: Sidebar Menu Functionality
     And the sidebar menu should be closed (or not present on login page)
 
   Scenario: Reset App State
-    # First, add an item to the cart to verify reset works
     When I add the first product to the cart from the products page
     And I open the sidebar menu
     And I click "Reset App State" in the sidebar

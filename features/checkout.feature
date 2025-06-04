@@ -47,44 +47,44 @@ Feature: Checkout process
       | Juan   |          | 12345         | Error: Last Name is required   |
       | Juan   | Pérez    |               | Error: Postal Code is required |
 
-Scenario: Cancel on the information screen and return to the cart
-  When I go to the cart
-  And I click the checkout button
-  And I cancel the information entry
-  Then I should be redirected to the cart page
-
-Scenario: Cancel on the summary screen and return to the catalog
-  When I go to the cart
-  And I click the checkout button
-  And I fill in my information with first name "Maria", last name "Gomez", and postal code "10101"
-  And I continue to the overview
-  And I cancel the purchase
-  Then I should be redirected to the products page
-
-Scenario: Validate subtotal on the summary screen with two products
-    And I add the second product to the cart
-    And I go to the cart
-    And I click the checkout button
-    And I fill in my information with first name "Carlos", last name "Ruiz", and postal code "55555"
-    And I continue to the overview
-    Then the total should be correct
-
-Scenario: Attempt to checkout with an empty cart
-    When I go to the cart
-    And I remove all items from the cart
-    And I click the checkout button
-    Then I should be on the checkout information page
-
-Scenario: Modify checkout information after navigating back from overview
+  Scenario: Cancel on the information screen and return to the cart
     When I go to the cart
     And I click the checkout button
-    And I fill in my information with first name "Original", last name "User", and postal code "10001"
+    And I cancel the information entry
+    Then I should be redirected to the cart page
+
+  Scenario: Cancel on the summary screen and return to the catalog
+    When I go to the cart
+    And I click the checkout button
+    And I fill in my information with first name "Maria", last name "Gomez", and postal code "10101"
     And I continue to the overview
-    Then I should be on the checkout overview page
-    When I navigate back to the previous page
-    Then I should be on the checkout information page
-    And I fill in my information with first name "Changed", last name "Name", and postal code "20002"
-    And I continue to the overview
-    Then I should be on the checkout overview page
-    And I finish the purchase
-    Then I should see the confirmation message "Thank you for your order!"
+    And I cancel the purchase
+    Then I should be redirected to the products page
+
+  Scenario: Validate subtotal on the summary screen with two products
+      And I add the second product to the cart
+      And I go to the cart
+      And I click the checkout button
+      And I fill in my information with first name "Carlos", last name "Ruiz", and postal code "55555"
+      And I continue to the overview
+      Then the total should be correct
+
+  Scenario: Attempt to checkout with an empty cart
+      When I go to the cart
+      And I remove all items from the cart
+      And I click the checkout button
+      Then I should be on the checkout information page
+
+  Scenario: Modify checkout information after navigating back from overview
+      When I go to the cart
+      And I click the checkout button
+      And I fill in my information with first name "Original", last name "User", and postal code "10001"
+      And I continue to the overview
+      Then I should be on the checkout overview page
+      When I navigate back to the previous page
+      Then I should be on the checkout information page
+      And I fill in my information with first name "Changed", last name "Name", and postal code "20002"
+      And I continue to the overview
+      Then I should be on the checkout overview page
+      And I finish the purchase
+      Then I should see the confirmation message "Thank you for your order!"
