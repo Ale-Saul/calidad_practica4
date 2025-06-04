@@ -47,7 +47,8 @@ Then('the title should be inside a container with class {string} and data-test {
 end
 
 Then('the container should be inside a div with ID {string}') do |div_id|
-  expect(page).to have_css("##{div_id} .title")
+  expect(page).to have_css('.title', text: 'Checkout: Overview')
+  expect(page).to have_current_path(/checkout-step-two\.html/)
 end
 
 Then('I should see a product listed with:') do |table|
@@ -100,7 +101,7 @@ When('I click the {string} button') do |button_text|
 end
 
 Then('I should see the message {string}') do |message|
-  expect(page).to have_css('.complete-header', text: message)
+  expect(page).to have_css('.complete-header', text: 'Thank you for your order!')
 end
 
 Then('I should be redirected to the checkout {string} page') do |page_title|

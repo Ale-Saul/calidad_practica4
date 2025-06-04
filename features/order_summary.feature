@@ -12,7 +12,7 @@ Feature: Checkout Overview - Order Summary
   Scenario: Order summary displays correct title and structure
     Then I should see a title with text "Checkout: Overview"
     And the title should be inside a container with class "header_secondary_container" and data-test "secondary-header"
-    And the container should be inside a div with ID "checkout_summary_container"
+    And the container should be inside a div with ID "checkout_container"
 
   Scenario: Display of product details in order summary
     Then I should see a product listed with:
@@ -35,7 +35,7 @@ Feature: Checkout Overview - Order Summary
   Scenario: User completes the order
     When I click the "Finish" button
     Then I should be redirected to the checkout "Complete!" page
-    And I should see the message "THANK YOU FOR YOUR ORDER"
+    And I should see the message "Thank you for your order!"
     
   Scenario: User cancels the order
     When I click the "Cancel" button
