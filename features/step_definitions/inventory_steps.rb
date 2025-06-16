@@ -56,3 +56,25 @@ end
 Then('the product price should be {string}') do |expected_price|
   expect(@product_details_page.product_price).to eq(expected_price)
 end
+
+# --- Pasos para selección de productos ---
+
+Given('I have added every available item to the cart') do
+  @inventory_page.add_all_products_to_cart
+end
+
+When('I add every available item to the cart') do
+  @inventory_page.add_all_products_to_cart
+end
+
+When('I remove every item from the cart') do
+  @inventory_page.remove_all_products_from_cart
+end
+
+Then('the cart icon should show a badge with the correct number of items') do
+  expect(@inventory_page.cart_badge_count).to eq(@inventory_page.product_count)
+end
+
+Then('the cart icon badge should disappear') do
+  expect(@inventory_page.cart_badge_count).to eq(0)
+end

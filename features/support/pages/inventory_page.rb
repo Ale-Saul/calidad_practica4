@@ -52,6 +52,21 @@ class InventoryPage < BasePage
   def add_product_to_cart(product_name)
     # Busca el contenedor del producto y luego el botón dentro de él
     item_container = find(INVENTORY_ITEM, has_text: product_name)
-    item_container.find(ADD_TO_CART_BUTTON).click
+    item_container.find('button', text: 'Add to cart').click
+  end
+
+  # Devuelve la cantidad de productos que hay en la página
+  def product_count
+    page.all(INVENTORY_ITEM).count
+  end
+
+  # Añade todos los productos visibles al carrito
+  def add_all_products_to_cart
+    page.all('button', text: 'Add to cart').each(&:click)
+  end
+
+  # Elimina todos los productos visibles del carrito
+  def remove_all_products_from_cart
+    page.all('button', text: 'Remove').each(&:click)
   end
 end 
