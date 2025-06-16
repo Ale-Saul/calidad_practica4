@@ -11,6 +11,8 @@ require_relative 'pages/base_page'
 # Carga las demás clases de Page Objects
 require_relative 'pages/login_page'
 require_relative 'pages/products_page'
+require_relative 'pages/inventory_page'
+require_relative 'pages/product_details_page'
 
 # --- Configuración de Capybara ---
 Capybara.configure do |config|
@@ -26,13 +28,24 @@ Before do
   Capybara.current_session.driver.browser.manage.window.maximize
   @login_page = LoginPage.new
   @products_page = ProductsPage.new
+  @inventory_page = InventoryPage.new
+  @product_details_page = ProductDetailsPage.new
+end
+
+# Hook con etiqueta para escenarios que requieren estar logueado
+Before('@login') do
+  # Usamos el Page Object para hacer el login, manteniendo el código limpio
+  @login_page.visit_page
+  @login_page.login_with('standard_user', 'secret_sauce')
+  # Verificamos que el login fue exitoso antes de continuar
+  expect(@inventory_page.on_page?).to be(true)
 end
 
 # Se ejecuta DESPUÉS de cada escenario
 After do |scenario|
   if scenario.failed?
     # Esta gema guarda una captura y la abre en el navegador
-    save_and_open_screenshot
+    #save_and_open_screenshot
   end
   # Limpia la sesión para que las pruebas no interfieran entre sí
   Capybara.reset_sessions!
