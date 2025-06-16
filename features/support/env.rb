@@ -5,6 +5,9 @@ require 'capybara/cucumber'
 require 'selenium-webdriver'
 require 'rspec/expectations'
 
+# Carga la clase base para que esté disponible para futuras clases de página.
+require_relative 'pages/base_page'
+
 Capybara.register_driver :chrome_incognito do |app|
   options = Selenium::WebDriver::Chrome::Options.new
   options.add_argument('--incognito')
