@@ -1,5 +1,9 @@
+# Este archivo se usará para configurar el entorno de Cucumber.
+# Se cargará automáticamente antes de que se ejecuten las pruebas.
+
 require 'capybara/cucumber'
 require 'selenium-webdriver'
+require 'rspec/expectations'
 
 Capybara.register_driver :chrome_incognito do |app|
   options = Selenium::WebDriver::Chrome::Options.new

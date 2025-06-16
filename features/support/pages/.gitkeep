@@ -1,0 +1,2 @@
+# Este archivo evita que el directorio 'pages' sea ignorado por Git si está vacío.
+# Aquí irán todas las clases de nuestras Page Objects. 
