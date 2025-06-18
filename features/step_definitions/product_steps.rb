@@ -22,10 +22,6 @@ When('I wait for the products to be sorted') do
   sleep 0.5
 end
 
-Then('the cart badge should be empty') do
-  expect(@inventory_page.cart_badge_count).to eq(0)
-end
-
 When('I select the filter {string}') do |option|
   @inventory_page.sort_by(option)
 end
