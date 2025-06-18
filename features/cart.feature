@@ -9,7 +9,7 @@ Feature: Shopping Cart Functionality
     Then I should be redirected to the products page after login
 
   Scenario: Add item to cart
-    When I click on the add to cart button for "Sauce Labs Backpack"
+    When I add "Sauce Labs Backpack" to the cart from the products page
     Then the cart badge should show "1"
     And the button should change to "Remove"
 
