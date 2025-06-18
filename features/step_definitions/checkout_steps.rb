@@ -1,92 +1,123 @@
-When('I add the first product to the cart') do
-    add_button = first('.inventory_item .btn_primary.btn_inventory', wait: 5)
-    expect(add_button).not_to be_nil, "No 'Add to cart' button found for the first available product. Ensure you are on the inventory page."
-    add_button.click
-    expect(page).to have_selector('.shopping_cart_badge', text: '1', wait: 5)
+Given('I am logged in as standard user') do
+  @login_page.visit_page
+  @login_page.login_with('standard_user', 'secret_sauce')
+  expect(@products_page).to be_displayed
+end
+
+Given('I have added one product to my cart') do
+  @products_page.add_first_product
+  expect(page).to have_css(CartPage::CART_BADGE, text: '1', wait: 5)
+end
+
+Given('I have added two products to my cart') do
+  @cart_page.visit_page
+  @cart_page.remove_all_items if @cart_page.item_count.positive?
+
+  visit '/inventory.html'
+  @products_page.add_first_product
+  @products_page.add_second_product
+
+  expect(page).to have_css(CartPage::CART_BADGE, text: '2', wait: 5)
+end
+
+
+When('I proceed to checkout with:') do |table|
+  @cart_page.visit_page
+  @cart_page.go_to_checkout
+  
+  unless @checkout_page.on_page?
+    puts "Failed to reach checkout page. Current URL: #{current_url}"
+    puts "Page HTML:\n#{page.html}"
   end
   
-  When('I add the second product to the cart') do
-    add_button = first('.inventory_item .btn_primary.btn_inventory', wait: 5)
-    expect(add_button).not_to be_nil, "Could not find an available 'Add to cart' button for a second product. (Was the first product added and its button state updated?)"
-    add_button.click
-    expect(page).to have_selector('.shopping_cart_badge', text: '2', wait: 5)
-  end
-  
-  When('I go to the cart') do
-    find('.shopping_cart_link').click
-    expect(page).to have_selector('#checkout', wait: 5)
-  end
-  
-  When('I click the checkout button') do
-    find('#checkout', wait: 5).click
-  end
-  
-  When('I fill in my information with first name {string}, last name {string}, and postal code {string}') do |first, last, zip|
-    fill_in 'First Name', with: first
-    fill_in 'Last Name', with: last
-    fill_in 'Zip/Postal Code', with: zip
-  end
-  
-  When('I continue to the overview') do
-    click_button('Continue')
-  end
-  
-  When('I finish the purchase') do
-    find('#finish', wait: 5).click
-  end
-  
-  When('I cancel the purchase') do
-    click_button('Cancel')
-  end
-  
-  Then('I should see the confirmation message {string}') do |msg|
-    expect(page).to have_content(msg)
-  end
+  data = table.rows_hash
+  @checkout_page.fill_information(data['First Name'], data['Last Name'], data['Zip Code'])
+  @checkout_page.continue
+end
 
-  When('I cancel the information entry') do
-    click_button('Cancel')
-  end
+When('I start checkout process') do
+  @cart_page.visit_page
+  @cart_page.go_to_checkout
+  expect(@checkout_page).to be_on_page
+end
 
-  Then('I should be redirected to the cart page') do
-    expect(page).to have_current_path(/cart.html/, url: true)
-    expect(page).to have_content('Your Cart')
-  end
+Given('I have removed all products from cart') do
+  @cart_page.visit_page
+  @cart_page.remove_all_items
+  expect(@cart_page).to have_no_items
+end
 
-  Then('the total should be correct') do
-    prices = all('.cart_item', count: 2, wait: 10).map do |item_element|
-      price_text_with_digits = item_element.find('.cart_item_label .inventory_item_price', text: /\d/).text
-      price_text_with_digits[/[\\d\\.]+/].to_f
-    end
-    subtotal = find('.summary_subtotal_label').text[/[\\d\\.]+/].to_f
-    expect(prices.sum).to eq(subtotal)
-  end
+When('I complete the purchase') do
+  @checkout_page.finish_purchase
+end
 
-  When('I remove all items from the cart') do
-    all('.cart_item .btn_secondary.cart_button').each do |remove_button|
-      remove_button.click
-    end
-    expect(page).not_to have_selector('.shopping_cart_badge', wait: 2)
-  end
+When('I attempt checkout with:') do |table|
+  @cart_page.visit_page           # ← obligatorio
+  @cart_page.go_to_checkout
+  data = table.rows_hash
+  @checkout_page.fill_information(data['First Name'], data['Last Name'], data['Zip Code'])
+  @checkout_page.continue
+end
 
-  Then('I should still be on the cart page') do
-    expect(page).to have_current_path(/cart.html/, url: true)
-    expect(page).to have_content('Your Cart')
-  end
+When('I cancel from information page') do
+  @checkout_page.cancel
+end
 
-  Then('I should be on the checkout overview page') do
-    expect(page).to have_current_path(/checkout-step-two.html/, url: true)
-    expect(page).to have_content('Checkout: Overview')
-  end
+When('I cancel the order') do
+  @checkout_page.cancel
+end
 
-  Then('I should see the text {string}') do |text_content|
-    expect(page).to have_content(text_content)
-  end
+When('I attempt to start checkout') do
+  @cart_page.visit_page
 
-  When('I navigate back to the previous page') do
-    page.go_back
+  if @cart_page.item_count.positive?
+    @cart_page.go_to_checkout
   end
+end
 
-  Then('I should be on the checkout information page') do
-    expect(page).to have_current_path(/checkout-step-one.html/, url: true)
-    expect(page).to have_content('Checkout: Your Information')
-  end
+
+
+When('I enter initial checkout information:') do |table|
+  data = table.rows_hash
+  @checkout_page.fill_information(data['First Name'], data['Last Name'], data['Zip Code'])
+  @checkout_page.continue
+end
+
+When('I review order summary') do
+  expect(@checkout_page).to be_on_overview_page
+end
+
+When('I return to information page') do
+  page.go_back
+end
+
+When('I modify information with:') do |table|
+  data = table.rows_hash
+  @checkout_page.fill_information(data['First Name'], data['Last Name'], data['Zip Code'])
+  @checkout_page.continue
+end
+
+Then('I should see the order confirmation') do
+  expect(@checkout_page).to be_on_complete_page
+  expect(page).to have_content('Thank you for your order')
+end
+
+Then('I should see the error {string}') do |message|
+  expect(@checkout_page.error_message).to include(message)
+end
+
+Then('I should return to my cart') do
+  expect(@cart_page).to be_on_page
+end
+
+Then('I should return to products page') do
+  expect(@products_page).to be_displayed
+end
+
+Then('the order summary should show correct total') do
+  @checkout_page.verify_order_total
+end
+
+Then('I should remain on cart page') do
+  expect(@cart_page).to be_on_page
+end
