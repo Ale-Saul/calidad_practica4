@@ -48,13 +48,15 @@ Then('the title should be inside a container with class {string} and data-test {
   expect(info[:data_test]).to eq(data_test)
 end
 
+# features/step_definitions/order_summary_steps.rb
 Then('the container should be inside a div with ID {string}') do |parent_id|
-  parent = find("##{parent_id}")   
+  # 1. existe el contenedor principal
+  expect(page).to have_css("##{parent_id}[data-test='checkout-summary-container']")
 
-  expect(parent).to be_truthy
-
-  expect(parent).to have_css('span.title[data-test="title"]', text: 'Checkout: Overview')
+  # 2. existe el encabezado (pero NO está dentro del contenedor anterior)
+  expect(page).to have_css('.header_secondary_container > span.title[data-test="title"]', text: 'Checkout: Overview')
 end
+
 
 Then('I should see the order summary container') do
   expect(page).to have_css('#checkout_summary_container[data-test="checkout-summary-container"]')

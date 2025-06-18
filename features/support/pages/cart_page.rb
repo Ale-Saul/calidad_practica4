@@ -4,7 +4,7 @@ class CartPage < BasePage
   REMOVE_BUTTONS           = 'button[data-test^="remove-"]'
   CART_ITEMS               = 'div[data-test="inventory-item"]'
   CART_BADGE               = 'span[data-test="shopping-cart-badge"]'
-  TITLE                    = '.title'                    # ← añadido
+  TITLE                    = '.title'                  
 
   def visit_page
     visit '/cart.html'

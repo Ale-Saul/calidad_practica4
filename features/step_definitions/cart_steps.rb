@@ -18,6 +18,10 @@ When('I click the remove button') do
   click_button 'Remove'
 end
 
+When('I add {string} to the cart from the products page') do |item_name|
+  step %(I click on the add to cart button for "#{item_name}")
+end
+
 Then('the cart badge should be empty') do
   expect(page).not_to have_css('.shopping_cart_badge')
 end
