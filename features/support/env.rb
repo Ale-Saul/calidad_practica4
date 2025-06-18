@@ -13,7 +13,6 @@ require_relative 'pages/login_page'
 require_relative 'pages/products_page'
 require_relative 'pages/inventory_page'
 require_relative 'pages/product_details_page'
-require_relative 'pages/checkout_page'
 
 # --- Configuración de Capybara ---
 Capybara.configure do |config|
@@ -31,7 +30,6 @@ Before do
   @products_page = ProductsPage.new
   @inventory_page = InventoryPage.new
   @product_details_page = ProductDetailsPage.new
-  @checkout_page = CheckoutPage.new
 end
 
 # Hook con etiqueta para escenarios que requieren estar logueado
