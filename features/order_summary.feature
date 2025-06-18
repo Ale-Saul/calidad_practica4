@@ -11,8 +11,8 @@ Feature: Checkout Overview - Order Summary
 
   Scenario: Order summary displays correct title and structure
     Then I should see a title with text "Checkout: Overview"
-    And the title should be inside a container with class "header_secondary_container" and data-test "secondary-header"
-    And the container should be inside a div with ID "checkout_container"
+    Then I should see the order summary container
+    Then the container should be inside a div with ID "checkout_summary_container"
 
   Scenario: Display of product details in order summary
     Then I should see a product listed with:

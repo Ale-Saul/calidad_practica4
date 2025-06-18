@@ -12,6 +12,7 @@ class CartPage < BasePage
   end
 
   def go_to_checkout
+    visit_page unless on_page?
     find(CHECKOUT_BUTTON, wait: 10).click
   end
 

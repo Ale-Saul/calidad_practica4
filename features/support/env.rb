@@ -26,7 +26,9 @@ Before do
   @inventory_page = InventoryPage.new
   @product_details_page = ProductDetailsPage.new
   @cart_page = CartPage.new
+  @order_summary_page = OrderSummaryPage.new
   @checkout_page = CheckoutPage.new
+  @checkout_info_page = CheckoutInfoPage.new
 end
 
 Before('@login') do
