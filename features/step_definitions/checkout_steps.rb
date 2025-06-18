@@ -1,4 +1,4 @@
-When('I add the first product to the cart') doAdd commentMore actions
+When('I add the first product to the cart') do
     add_button = first('.inventory_item .btn_primary.btn_inventory', wait: 5)
     expect(add_button).not_to be_nil, "No 'Add to cart' button found for the first available product. Ensure you are on the inventory page."
     add_button.click
