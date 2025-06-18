@@ -49,13 +49,12 @@ Then('the title should be inside a container with class {string} and data-test {
 end
 
 Then('the container should be inside a div with ID {string}') do |parent_id|
-  parent = find("##{parent_id}")
+  parent = find("##{parent_id}")   
 
   expect(parent).to be_truthy
 
-  expect(page).to have_css('span.title[data-test="title"]', text: 'Checkout: Overview')
+  expect(parent).to have_css('span.title[data-test="title"]', text: 'Checkout: Overview')
 end
-
 
 Then('I should see the order summary container') do
   expect(page).to have_css('#checkout_summary_container[data-test="checkout-summary-container"]')
