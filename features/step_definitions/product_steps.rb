@@ -18,11 +18,13 @@ When('I add {string} to the cart') do |product_name|
   @inventory_page.add_product_to_cart(product_name)
 end
 
+When('I wait for the products to be sorted') do
+  sleep 0.5
+end
+
 Then('the cart badge should be empty') do
   expect(@inventory_page.cart_badge_count).to eq(0)
 end
-
-# --- Pasos de ordenamiento que podrían moverse a inventory_steps.rb ---
 
 When('I select the filter {string}') do |option|
   @inventory_page.sort_by(option)

@@ -6,6 +6,10 @@ When('I login with username {string} and password {string}') do |username, passw
   @login_page.login_with(username, password)
 end
 
+Given('I click the login button') do
+  @login_page.submit
+end
+
 Then('I should be redirected to the products page after login') do
   expect(@products_page).to be_displayed
   # Or alternatively:
