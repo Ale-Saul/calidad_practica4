@@ -5,9 +5,8 @@ Feature: Shopping Cart Functionality
 
   Background:
     Given I am on the SauceDemo login page
-    When I enter username "standard_user"
-    And I enter password "secret_sauce"
-    And I click the login button
+    When I login with username "standard_user" and password "secret_sauce"
+    Then I should be redirected to the products page after login
 
   Scenario: Add item to cart
     When I click on the add to cart button for "Sauce Labs Backpack"

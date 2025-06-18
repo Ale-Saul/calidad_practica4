@@ -32,4 +32,16 @@ class BasePage
     return 0 unless page.has_css?(CART_BADGE)
     find(CART_BADGE).text.to_i
   end
+
+  def on_page?
+    has_current_path?(expected_path) && has_css?(TITLE, text: expected_title)
+  end
+  
+  def expected_path
+
+  end
+  
+  def expected_title
+    
+  end
 end 

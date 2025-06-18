@@ -5,10 +5,8 @@ Feature: Product Filtering
 
   Background:
     Given I am on the SauceDemo login page
-    When I enter username "standard_user"
-    And I enter password "secret_sauce"
-    And I click the login button
-    Then I should be redirected to the products page
+    When I login with username "standard_user" and password "secret_sauce"
+    Then I should be redirected to the products page after login
 
   Scenario: Filter by Name (A to Z)
     When I select the filter "Name (A to Z)"

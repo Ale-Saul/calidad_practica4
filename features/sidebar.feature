@@ -5,16 +5,14 @@ Feature: Sidebar Menu Functionality
 
   Background: User is logged in and on the products page
     Given I am on the SauceDemo login page
-    And I enter username "standard_user"
-    And I enter password "secret_sauce"
-    And I click the login button
-    And I should be redirected to the products page
+    When I login with username "standard_user" and password "secret_sauce"
+    Then I should be redirected to the products page after login
     And I open the sidebar menu
 
   Scenario: Navigate to All Items
     When I click "All Items" in the sidebar
     And I close the sidebar menu
-    Then I should be redirected to the products page
+    Then I should be redirected to the products page after login
     And the sidebar menu should be closed
 
   Scenario: Navigate to About page
@@ -32,5 +30,5 @@ Feature: Sidebar Menu Functionality
     And I click "Reset App State" in the sidebar
     And I close the sidebar menu
     Then the cart should be empty
-    And I should be redirected to the products page
+    And I should be redirected to the products page after login
     And the sidebar menu should be closed
